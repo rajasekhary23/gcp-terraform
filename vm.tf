@@ -16,3 +16,10 @@ resource "google_compute_instance" "worker-1" {
   #   depending on your needs
   allow_stopping_for_update = true
 }
+
+  network_interface {
+    network = "default"
+    access_config {
+      nat_ip = google_compute_address.external_ip.address
+    }
+  }
