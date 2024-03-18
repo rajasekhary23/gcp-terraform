@@ -1,4 +1,4 @@
 provider "google" {
-  project     = "my-project-id"
-  region      = "us-central1"
+  project     = "long-perception-417612"
+  region      = "us-west1"
 }
