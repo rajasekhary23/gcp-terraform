@@ -1,4 +1,4 @@
-# Create a new external IP address
+# Create a new external IP address 1
 resource "google_compute_address" "external_ip" {
   name = "example-ip"
 }
@@ -21,6 +21,11 @@ resource "google_compute_instance" "worker-1" {
   }
 }
 
+# Create a new external IP address 2
+resource "google_compute_address" "external_ip2" {
+  name = "example-ip2"
+}
+
 # Create a Compute Engine instance
 resource "google_compute_instance" "worker-2" {
   name         = "worker-2"
@@ -34,9 +39,14 @@ resource "google_compute_instance" "worker-2" {
   network_interface {
     network = "default"
     access_config {
-      nat_ip = google_compute_address.external_ip.address
+      nat_ip = google_compute_address.external_ip2.address
     }
   }
+}
+
+# Create a new external IP address 3
+resource "google_compute_address" "external_ip3" {
+  name = "example-ip3"
 }
 
 # Create a Compute Engine instance
@@ -52,7 +62,7 @@ resource "google_compute_instance" "worker-3" {
   network_interface {
     network = "default"
     access_config {
-      nat_ip = google_compute_address.external_ip.address
+      nat_ip = google_compute_address.external_ip3.address
     }
   }
 }
@@ -60,4 +70,6 @@ resource "google_compute_instance" "worker-3" {
 
 output "public_ip" {
   value = google_compute_address.external_ip.address
+  value = google_compute_address.external_ip2.address
+  value = google_compute_address.external_ip3.address
 }
