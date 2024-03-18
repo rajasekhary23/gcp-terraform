@@ -16,6 +16,10 @@ resource "google_compute_instance" "worker-1" {
   #   depending on your needs
   allow_stopping_for_update = true
 
+  resource "google_compute_network" "external_ip" {
+    name = "external-ip"
+  }
+
   network_interface {
     network = "default"
     access_config {
