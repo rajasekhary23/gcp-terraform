@@ -1,23 +1,16 @@
-resource "google_compute_instance" "worker-1" {
-  provider = google
-  name = "worker-1"
-  machine_type = "e2-micro"
-  network_interface {
-    network = "default"
-  }
+# Create a new external IP address
+resource "google_compute_address" "external_ip" {
+  name = "example-ip"
+}
 
+# Create a Compute Engine instance
+resource "google_compute_instance" "worker-1" {
+  name         = "worker-1"
+  machine_type = "e2-micro"
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2004-focal-v20220712"
+      image = "debian-cloud/debian-10"
     }
-  }
-  # Some changes require full VM restarts
-  # consider disabling this flag in production
-  #   depending on your needs
-  allow_stopping_for_update = true
-
-  resource "google_compute_address" "external_ip" {
-    name = "address"
   }
 
   network_interface {
@@ -26,4 +19,8 @@ resource "google_compute_instance" "worker-1" {
       nat_ip = google_compute_address.external_ip.address
     }
   }
+}
+
+output "public_ip" {
+  value = google_compute_address.external_ip.address
 }
