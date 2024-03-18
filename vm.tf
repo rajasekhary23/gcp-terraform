@@ -15,7 +15,6 @@ resource "google_compute_instance" "worker-1" {
   # consider disabling this flag in production
   #   depending on your needs
   allow_stopping_for_update = true
-}
 
   network_interface {
     network = "default"
@@ -23,3 +22,4 @@ resource "google_compute_instance" "worker-1" {
       nat_ip = google_compute_address.external_ip.address
     }
   }
+}
