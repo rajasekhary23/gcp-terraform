@@ -68,8 +68,8 @@ resource "google_compute_instance" "worker-3" {
 }
 
 
-output "public_ip" {
-  value = google_compute_address.external_ip.address
-  value = google_compute_address.external_ip2.address
-  value = google_compute_address.external_ip3.address
-}
+#output "public_ip" {
+#  value = google_compute_address.external_ip.address
+#  value = google_compute_address.external_ip2.address
+#  value = google_compute_address.external_ip3.address
+#}
