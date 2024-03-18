@@ -1,4 +1,4 @@
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "worker-1" {
   provider = google
   name = "worker-1"
   machine_type = "e2-micro"
