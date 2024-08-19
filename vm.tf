@@ -4,25 +4,27 @@
 # }
 
 # Create a Compute Engine instance
-resource "google_compute_instance" "AnsibleMaster" {
-  name  = "ansible-master"
-  machine_type = "e2-small"
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-12"
-    }
-  }
+# resource "google_compute_instance" "AnsibleMaster" {
+#   name  = "ansible-master"
+#   machine_type = "e2-small"
+#   boot_disk {
+#     initialize_params {
+#       image = "debian-cloud/debian-12"
+#     }
+#   }
 
   #Startup script
-    metadata_startup_script = "${file("bash.sh")}"
+#     metadata_startup_script = "${file("bash.sh")}"
 
-  network_interface {
-    network = "default"
-    access_config {
-      #nat_ip = google_compute_address.external_ip.address
-    }
-  }
-}
+#   network_interface {
+#     network = "default"
+#     access_config {
+      
+#     }
+#   }
+# }
+
+#------------------------------------------------------------------
 # Create a Compute Engine instance
 resource "google_compute_instance" "AnsibleWorker" {
   count = length(var.worker_names)
@@ -32,6 +34,10 @@ resource "google_compute_instance" "AnsibleWorker" {
     initialize_params {
       image = var.vmproperties.image
     }
+  }
+
+  metadata = {
+    ssh-keys = "speedcloud_in:${file("/Users/rajasekhar/.ssh/id_rsa.pub")}"
   }
 
   network_interface {
